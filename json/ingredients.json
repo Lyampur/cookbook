@@ -1,0 +1,9 @@
+[
+  {"name":"вода","isActive":false},
+  {"name":"соль","isActive":false},
+  {"name":"сахар","isActive":false},
+  {"name":"молоко","isActive":false},
+  {"name":"рис","isActive":false},
+  {"name":"гречка","isActive":false},
+  {"name":"пшено","isActive":false}
+]

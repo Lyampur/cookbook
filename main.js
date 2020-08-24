@@ -1,66 +1,31 @@
-const meal = (id, name, ...args) =>
-            ({id, name, args});
+// загрузка данных
+let request = new XMLHttpRequest();
 
-const meals = [
-  {
-    id: 1,
-    name: 'Овсянная каша',
-    composition: ['рис', 'молоко', 'сливочное масло'],
-  },
-  {
-    id: 2,
-    name: 'Щи',
-    composition: ['вода', 'капуста', 'картошка'],
-  },
-  {
-    id: 3,
-    name: 'Вода',
-    composition: ['вода'],
-  },
-];
+// для блюд
+request.open("GET","json/meals.json", false);
+request.send(null);
+const meals = JSON.parse(request.responseText);
+
+// для ингредиентов
+request.open("GET","json/ingredients.json", false);
+request.send(null);
+const ingredients = JSON.parse(request.responseText);
 
 new Vue({
   el: '#app',
   data: {
-    ingredients: [
-      {name: 'вода',
-       isActive: false},
-       {name: 'соль',
-        isActive: false},
-        {name: 'сахар',
-         isActive: false},
-         {name: 'рис',
-          isActive: false},
-          {name: 'молоко',
-           isActive: false},
-     ],
-    //ingredients: new Set(['соль', 'сахар', 'рис', 'молоко', 'вода']),
-    selectedIngredients: [],
-    //selectedIngredients: new Set(['вода']),
+    ingredients: ingredients,
     meals: meals,
-    meal: meals[0],
+    selectedIngredients: [],
     newIngredient: '',
 
   },
   methods: {
     addIngredient() {
       this.ingredients.push({name: this.newIngredient.toLowerCase(), isActive: false});
-      //this.ingredients.add(this.newIngredient.toLowerCase());
       this.newIngredient = '';
     },
 
-    // для Set
-    // chooseIngredients(ingredient) {
-    //   if (this.selectedIngredients.has(ingredient)) {
-    //     this.selectedIngredients.delete(ingredient);
-    //     console.log(`Убрали ${ingredient} // массив ${Array.from(this.selectedIngredients)}`);
-    //   } else {
-    //     this.selectedIngredients.add(ingredient);
-    //     console.log(`Добавили ${ingredient} // массив ${Array.from(this.selectedIngredients)}`);
-    //   }
-    // },
-
-    // для Array
     // добавляем ингредиент в массив только в том случае, если его еще нет в этом массиве,
     // иначе удаляем, для избежания повторений одних и тех же ингредиентов
     chooseIngredients(ingredient) {
